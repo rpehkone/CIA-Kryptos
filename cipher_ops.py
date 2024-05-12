@@ -4,8 +4,6 @@ def table_to_string(table):
     return "".join("".join(sublist) for sublist in table)
 
 def reshape_string_to_table(s, w, h):
-    if len(s) != w * h:
-        return None
     return [list(s[i*w:(i+1)*w]) for i in range(h)]
 
 def reshape_table(table, w, h):

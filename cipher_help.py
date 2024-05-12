@@ -1,3 +1,6 @@
+import random
+import re
+
 #drops all the characters not needed in k1 and k2
 #but maybe needed in k4
 def get_kryptos_vigenere_table():
@@ -29,16 +32,20 @@ def get_kryptos_ciphertexts():
     k4.insert(0, end)
     return k1, k2, k3, k4
 
-def _get_dictionary_list(filename):
+def get_dictionary_list(filename):
     with open(filename, 'r') as file:
         lines = file.readlines()
     lines = [line.split('/')[0].strip() + '\n' for line in lines if line.split('/')[0].strip()]
-    res = [line.strip().lower() for line in lines]
+    res = []
+    for line in lines:
+        line = line.strip().lower()
+        line = re.sub(r'[^a-z]', '', line)
+        res.append(line)
     return res
 
 def _init_dictionaries():
-    res = _get_dictionary_list('data/english.txt')
-    res += _get_dictionary_list('data/american.txt')
+    res = get_dictionary_list('data/english.txt')
+    res += get_dictionary_list('data/american.txt')
     res = sorted_words = sorted(res, key=len, reverse=True)
     res = set(res)
     return res
@@ -71,3 +78,9 @@ def average_word_length(sentence):
         return 0
     average_length = total_length / len(words)
     return average_length
+
+def replace_random_char(s):
+    index_to_replace = random.randint(0, len(s) - 1)
+    new_char = random.choice('abcdefghijklmnopqrstuvwxyz')
+    s = s[:index_to_replace] + new_char + s[index_to_replace + 1:]
+    return s
