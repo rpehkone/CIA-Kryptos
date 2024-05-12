@@ -30,7 +30,7 @@ def find_all_factors(n):
                 res.append([i, j])
     return res
 
-def decode_vigenere(cipher_table, vigenere_table, key):
+def decode_keyed_vigenere(cipher_table, vigenere_table, key):
     row_indices = [next(i for i, row in enumerate(vigenere_table) if row[0] == k) for k in key]
     
     cipher_flattened = []

@@ -29,29 +29,39 @@ def get_kryptos_ciphertexts():
     k4.insert(0, end)
     return k1, k2, k3, k4
 
-def get_dictionary(filename):
+def _get_dictionary_list(filename):
     with open(filename, 'r') as file:
         lines = file.readlines()
     lines = [line.split('/')[0].strip() + '\n' for line in lines if line.split('/')[0].strip()]
     res = [line.strip().lower() for line in lines]
     return res
 
-def dictionary_split_string(s, words):
+def _init_dictionaries():
+    res = _get_dictionary_list('data/english.txt')
+    res += _get_dictionary_list('data/american.txt')
+    res = sorted_words = sorted(res, key=len, reverse=True)
+    res = set(res)
+    return res
+
+sorted_dictionary = _init_dictionaries()
+
+def dictionary_split_string(s):
     result = []
     i = 0
-    while i < len(s):
+    full_len = len(s)
+    max_word_length = 10
+    while i < full_len:
         matched = False
-        for word in sorted(words, key=len, reverse=True):
-            if s[i:i+len(word)] == word:
-                result.append(word)
-                i += len(word)
+        for length in range(min(max_word_length, full_len - i), 0, -1):
+            if s[i:i+length] in sorted_dictionary:
+                result.append(s[i:i+length])
+                i += length
                 matched = True
                 break
         if not matched:
-            result.append(s[i])#add ?
-            # print('no words matched')
+            result.append(s[i])
             i += 1
-    res_str =  ' '.join(result)
+    res_str = ' '.join(result)
     return res_str.replace(' ?', '?')
 
 def average_word_length(sentence):
