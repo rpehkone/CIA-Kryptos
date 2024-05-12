@@ -1,4 +1,5 @@
 import numpy as np
+import random
 
 def table_to_string(table):
     return "".join("".join(sublist) for sublist in table)
@@ -19,7 +20,7 @@ def table_rotate_counterclockwise(matrix):
     matrix = table_rotate_clockwise(matrix)
     return matrix
 
-def find_all_factors(n):
+def find_all_factors_int(n):
     res = []
     for i in range(1, int(n**0.5) + 1):
         if n % i == 0:
@@ -27,6 +28,10 @@ def find_all_factors(n):
             if i < j:
                 res.append([i, j])
     return res
+
+def find_all_factors_table(table):
+    s = table_to_string(table)
+    return find_all_factors_int(len(s))
 
 def decode_keyed_vigenere(cipher_table, vigenere_table, key):
     row_indices = [next(i for i, row in enumerate(vigenere_table) if row[0] == k) for k in key]
