@@ -11,6 +11,9 @@ def reshape_table(table, w, h):
     s = table_to_string(table)
     return reshape_string_to_table(s, w, h)
 
+def flatten_table(table):
+    return [item for sublist in table for item in sublist]
+
 def table_rotate_clockwise(matrix):
     return [list(col) for col in zip(*matrix[::-1])]
 
@@ -84,6 +87,12 @@ def table_remove_questionmarks(cipher_table):
             if cipher_table[i][k] == '?':
                 del cipher_table[i][k]
     return cipher_table
+
+def int_to_string(intlist):
+    return ''.join([chr(num + ord('a')) for num in intlist])
+
+def string_to_int(string):
+    return [ord(char) - ord('a') for char in string]
 
 def table_char_to_int(table):
     return [[ord(char) - ord('a') for char in row] for row in table]

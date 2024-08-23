@@ -1,3 +1,4 @@
+from collections import Counter
 import random
 import re
 
@@ -52,6 +53,47 @@ def _init_dictionaries():
     return res
 
 sorted_dictionary = _init_dictionaries()
+
+def english_probability_int(int_list):
+    standard_frequencies = [
+        8.167, 1.492, 2.782, 4.253, 12.702, # a, b, c, d, e
+        2.228, 2.015, 6.094, 6.966, 0.153,  # f, g, h, i, j
+        0.772, 4.025, 2.406, 6.749, 7.507,  # k, l, m, n, o
+        1.929, 0.095, 5.987, 6.327, 9.056,  # p, q, r, s, t
+        2.758, 0.978, 2.360, 0.150, 1.974,  # u, v, w, x, y
+        0.074                               # z
+    ]
+
+    char_count = Counter(int_list)
+    total_chars = sum(char_count.values())
+    probability_score = 0
+
+    for index, freq in char_count.items():
+        expected_freq = standard_frequencies[index]
+        probability_score += abs(expected_freq - (freq / total_chars * 100))
+
+    return 100.0 - probability_score
+
+def english_probability(text):
+    standard_frequencies = {
+        'a': 8.167, 'b': 1.492, 'c': 2.782, 'd': 4.253, 'e': 12.702,
+        'f': 2.228, 'g': 2.015, 'h': 6.094, 'i': 6.966, 'j': 0.153,
+        'k': 0.772, 'l': 4.025, 'm': 2.406, 'n': 6.749, 'o': 7.507,
+        'p': 1.929, 'q': 0.095, 'r': 5.987, 's': 6.327, 't': 9.056,
+        'u': 2.758, 'v': 0.978, 'w': 2.360, 'x': 0.150, 'y': 1.974,
+        'z': 0.074
+    }
+
+    char_count = Counter(text)
+    total_chars = sum(char_count.values())
+    probability_score = 0
+    for char, freq in char_count.items():
+        # if char in standard_frequencies: del branch for optimize
+        expected_freq = standard_frequencies[char]
+        probability_score += abs(expected_freq - (freq / total_chars * 100))
+
+    return 100.0 - probability_score
+
 
 def dictionary_split_string(s):
     result = []

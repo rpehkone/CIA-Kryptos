@@ -8,6 +8,11 @@ import time
 k1, k2, k3, k4 = cipher_help.get_kryptos_ciphertexts()
 vigenere_table = cipher_help.get_kryptos_vigenere_table()
 
+# k4 = cipher_ops.table_remove_questionmarks(k4)
+# k4 = cipher_ops.table_to_string(k4)
+# print(cipher_help.english_probability(k4))
+# 26.718793814433013
+# exit(0)
 
 dictionary = cipher_help.get_dictionary_list('data/american.txt')
 dictionary = [word for word in dictionary if 5 <= len(word) <= 10]
@@ -58,7 +63,9 @@ def table_random_op(table):
         # case 4:
         #     padding left
         # case 4:
-        #     hill cipher
+        #     hill cipher (because its written on the sculpture)
+        # case 4:
+        #     playfair cipher (because repeating letters in k4)
         # case 4:
         #     shuffle rows
         # case 5:

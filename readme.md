@@ -5,10 +5,10 @@
 ## Dictionary brute-forcing Vigenère keys
 ```
 python3 k1k2_bruteforce.py
-k1 palimpsest score: 3.1 took: 1.376 seconds
-k2 abscissa score: 4.1 took: 1.219 seconds
-k1 Found typo fix key: palimpcest took: 0.013 seconds
-k2 Found typo fix key: abvcissa took: 0.041 seconds
+k1 palimpsest english probability: 70.5 took: 0.859 seconds
+k2 abscissa english probability: 79.5 took: 0.395 seconds
+k1 Found typo fix key: palimpcest took: 0.025 seconds
+k2 Found typo fix key: abvcissa took: 0.015 seconds
 ```
 
  
