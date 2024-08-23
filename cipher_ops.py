@@ -33,7 +33,7 @@ def find_all_factors_table(table):
     s = table_to_string(table)
     return find_all_factors_int(len(s))
 
-def decode_keyed_vigenere(cipher_table, vigenere_table, key):
+def decode_keyed_vigenere_char_questionmarks_included(cipher_table, vigenere_table, key):
     row_indices = [next(i for i, row in enumerate(vigenere_table) if row[0] == k) for k in key]
     
     cipher_flattened = []
@@ -76,4 +76,34 @@ def decode_keyed_vigenere(cipher_table, vigenere_table, key):
             index += 1
         result_table.append(result_row)
 
+    return result_table
+
+def table_remove_questionmarks(cipher_table):
+    for i in reversed(range(len(cipher_table))):
+        for k in reversed(range(len(cipher_table[i]))):
+            if cipher_table[i][k] == '?':
+                del cipher_table[i][k]
+    return cipher_table
+
+def table_char_to_int(table):
+    return [[ord(char) - ord('a') for char in row] for row in table]
+
+def table_int_to_char(table):
+    return [[chr(num + ord('a')) for num in row] for row in table]
+
+def decode_keyed_vigenere_optimized(cipher_table, vigenere_table, key):
+    vigenere_array = np.array(vigenere_table)
+    key_indices = [np.where(vigenere_array[:, 0] == k)[0][0] for k in key]
+    cipher_flattened = np.concatenate(cipher_table)
+    indices = np.tile(key_indices, (len(cipher_flattened) // len(key_indices)) + 1)[:len(cipher_flattened)]
+    selected_vigenere = vigenere_array[indices]
+    decoded_values = (cipher_flattened[:, None] - selected_vigenere)
+    decoded_indices = np.where(decoded_values == 0)[1]
+    result_characters = vigenere_array[0, decoded_indices]
+    result_table = []
+    start = 0
+    for row in cipher_table:
+        end = start + len(row)
+        result_table.append(result_characters[start:end].tolist())
+        start = end
     return result_table

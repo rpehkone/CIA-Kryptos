@@ -28,6 +28,7 @@ def get_kryptos_ciphertexts():
     #so its part of k4
     end = k3[-1][-5:]
     k3[-1] = k3[-1][:-5]
+    # k4 = code_lines[24:]#?
     k4 = code_lines[25:]
     k4.insert(0, end)
     return k1, k2, k3, k4
