@@ -19,12 +19,4 @@ python3 k3_bruteforce.py
 ['reshape 21 16', 'reshape 21 16', 'reshape 8 42', 'counterclockwise', 'reshape 24 14', 'counterclockwise'] score: 3.7 took: 0.6 seconds
 ```
 
-
-### Good videos
-- [The Numbers Mason! What do they Mean?](https://www.youtube.com/results?search_query=The+Numbers+Mason!+What+do+they+Mean)  
-- [LEMMiNO](https://www.youtube.com/watch?v=jVpsLMCIB0Y)
-- [Richard Bean](https://www.youtube.com/watch?v=Q8o_S5qWIvM)
-- [Jim Sanborn Presentation](https://www.youtube.com/watch?v=oFKPNRpE21o)
-- [Polonium-210](https://www.youtube.com/watch?v=H4HXJydsQFs&t=2043s)
-
 License: CC0
